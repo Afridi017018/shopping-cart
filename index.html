@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus1" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="value1" class="form-control text-center" value="1">
+                           <button id="plus1" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="taka1">1219</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus2" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="value2" type="text" class="form-control text-center" value="1">
+                           <button id="plus2" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="taka2">59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotal">1,278</span> </h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+<!-- script-part -->
+
+<script>
+
+///iphone 128gb increasing part
+const plus1 = document.getElementById('plus1');
+plus1.addEventListener("click" , function(event){
+ 
+//  const  value1 = document.getElementById('value1').value;
+//  var currentValue1number = parseFloat(value1);
+//  currentValue1number++;
+//  document.getElementById('value1').value=currentValue1number;
+ 
+/// console.log(document.getElementById('value1').value);
+
+plus_part("value1" , "taka1");
+total();
+
+})
+
+
+
+///iphone 128gb decreasing part
+
+const minus1 = document.getElementById('minus1');
+minus1.addEventListener("click" , function(event){
+
+minus_part("value1" , "taka1");
+total();
+})
+
+
+
+
+///iphone normal increasing part
+const plus2 = document.getElementById('plus2');
+plus2.addEventListener("click" , function(event){
+ 
+//  const  value1 = document.getElementById('value1').value;
+//  var currentValue1number = parseFloat(value1);
+//  currentValue1number++;
+//  document.getElementById('value1').value=currentValue1number;
+ 
+/// console.log(document.getElementById('value1').value);
+
+plus_part("value2" , "taka2");
+total();
+
+})
+
+
+
+///iphone normal decreasing part
+
+const minus2 = document.getElementById('minus2');
+minus2.addEventListener("click" , function(event){
+
+minus_part("value2" , "taka2");
+total();
+})
+
+
+
+function total()
+{
+   const total1 = document.getElementById("taka1").innerText;
+   const totalNumber1 = parseFloat(total1);
+   const total2 = document.getElementById("taka2").innerText;
+   const totalNumber2 = parseFloat(total2);
+
+   const Total = totalNumber1 + totalNumber2;
+
+   document.getElementById("subTotal").innerText = Total;
+   document.getElementById("total").innerText = Total;
+}
+
+
+function plus_part(id , taka)
+{
+   
+ const  currentValue = document.getElementById(id).value;
+ var currentValueNumber = parseFloat(currentValue);
+ currentValueNumber++;
+ document.getElementById(id).value=currentValueNumber;
+
+ if(id ="value" && 1<currentValueNumber)
+ {
+   const  Taka = document.getElementById(taka).innerText;
+   console.log(Taka);
+  var currentTaka = parseFloat(Taka);
+  currentTaka = currentTaka/ (currentValueNumber-1);
+  currentTaka *= currentValueNumber;
+  document.getElementById(taka).innerText=currentTaka;
+ }
+}
+
+function minus_part(id , taka)
+{
+   ///console.log("test");
+ const  currentValue = document.getElementById(id).value;
+ var currentValueNumber = parseFloat(currentValue);
+ currentValueNumber--;
+
+if(currentValueNumber<1){
+document.getElementById(id).value=1;
+return;
+}
+
+ document.getElementById(id).value=currentValueNumber;
+
+ if(id ="value" && 0<currentValueNumber)
+ {
+   const  Taka = document.getElementById(taka).innerText;
+  var currentTaka = parseFloat(Taka);
+  currentTaka = currentTaka/ (currentValueNumber+1);
+  currentTaka *= currentValueNumber;
+  document.getElementById(taka).innerText=currentTaka;
+ }
+}
+
+</script>
+
+</body>
+
+</html>
